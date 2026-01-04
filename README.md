@@ -24,5 +24,6 @@ This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani
    - link: http://localhost:3000/api/games
 4. Run Forntend (Port 5173)
    - cd game-hub
+   - npm install (install vite locally)
    - npm run dev
    - link: http://localhost:5173/
