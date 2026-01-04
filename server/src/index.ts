@@ -10,7 +10,7 @@ app.use(cors());
 
 app.get("/api/games", async (_req, res) => {
   try {
-    const response = await axios.get("https://www.freetogame.com/api/games");
+    const response = await axios.get(process.env.API_URL!);
     res.json(response.data);
   } catch (error) {
     console.error(error);
