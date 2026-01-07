@@ -8,10 +8,23 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
+let api = "/api/";
+let Base = `${process.env.API_URL_TAGS!}${api}`;
+
 // games
 app.get("/api/games", async (_req, res) => {
   try {
-    const response = await axios.get(process.env.API_URL!);
+    const response = await axios.get(Base);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch games" });
+  }
+});
+
+app.get("/api/games?sort-by=alphabetical", async (_req, res) => {
+  try {
+    const response = await axios.get(Base);
     res.json(response.data);
   } catch (error) {
     console.error(error);

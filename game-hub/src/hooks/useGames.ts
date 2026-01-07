@@ -10,11 +10,6 @@ export interface Game {
   genre: string;
 }
 
-interface FetchGamesResponse {
-  count: number;
-  results: Game[];
-}
-
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
