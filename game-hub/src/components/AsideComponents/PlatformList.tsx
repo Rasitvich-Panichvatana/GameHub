@@ -24,6 +24,8 @@ const PlatformList = ({ selectedPlatform, onSelectPlatform }: Props) => {
     }
   };
 
+  console.log("PlatformList rendered");
+
   return (
     <>
       <CheckboxGroup

@@ -4,12 +4,18 @@ import GameGrid from "./components/MainComponents/GameGrid";
 
 import mainBG from "./assets/mainBG.jpg";
 import Accordions from "./components/AsideComponents/Accordions";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import PlatformList from "./components/AsideComponents/PlatformList";
 import GenreList from "./components/AsideComponents/GenreList";
 
 function App() {
   const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+
+  const onSelectPlatform = useCallback((platform: string | null) => {
+    setSelectedPlatform(platform);
+  }, []);
+
+  console.log("App rendered", selectedPlatform);
 
   return (
     <Grid
@@ -34,7 +40,7 @@ function App() {
             title="Platform"
             checkbox={
               <PlatformList
-                onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+                onSelectPlatform={onSelectPlatform}
                 selectedPlatform={selectedPlatform}
               />
             }

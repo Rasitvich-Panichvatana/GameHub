@@ -48,6 +48,7 @@ const GenreList = () => {
     "horror",
     "mmorts ",
   ];
+
   return (
     <>
       <CheckboxGroup>
