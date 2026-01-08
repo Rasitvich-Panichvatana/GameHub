@@ -56,7 +56,10 @@ app.get("/api/games", async (_req, res) => {
     // 3️⃣ Return fresh API data
     return res.json(games);
   } catch (apiError) {
-    console.error("API request failed, using cached data:", apiError.message);
+    console.error(
+      "API request failed, using cached data:",
+      (apiError as Error).message
+    );
 
     // 4️⃣ Load cached data if API fails
     try {
