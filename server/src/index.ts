@@ -20,7 +20,7 @@ const pool = new Pool({
 app.get("/api/games", async (_req, res) => {
   try {
     const { rows } = await pool.query(
-      "SELECT * FROM games ORDER BY updated_at DESC"
+      "SELECT * FROM games ORDER BY title DESC"
     );
     return res.json(rows);
   } catch (err) {
