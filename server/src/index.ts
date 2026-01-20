@@ -35,7 +35,10 @@ app.get("/api/games", async (req, res) => {
       conditions.push(`genre = $${params.length}`);
     }
 
+    // ILIKE = not case sensitive matching eg. PC = pc = Pc
+    // %PC% = find anything with PC inside
     if (platform) {
+      // Make platform Array incase of string eg. /api/games?platform=PC => platform === "PC"
       const platforms = Array.isArray(platform) ? platform : [platform];
 
       const likeClauses = platforms.map((p) => {
