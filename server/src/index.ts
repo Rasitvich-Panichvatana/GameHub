@@ -43,7 +43,7 @@ app.get("/api/games", async (req, res) => {
         return `platform ILIKE $${params.length}`;
       });
 
-      conditions.push(`(${likeClauses.join(" OR ")})`);
+      conditions.push(`(${likeClauses.join(" AND ")})`);
     }
 
     if (search) {
