@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
-import { withDefaultColorScheme } from "@chakra-ui/react";
 
 export interface Game {
   id: number;
@@ -12,34 +11,42 @@ export interface Game {
 }
 
 interface Props {
-  selectedPlatform: string | null;
+  selectedPlatforms?: string[];
+  selectedGenres?: string[];
+  searchText?: string;
+  page?: number;
 }
 
-const useGames = ({ selectedPlatform }: Props) => {
+const useGames = ({
+  selectedPlatforms = [],
+  selectedGenres = [],
+  searchText,
+  page = 1,
+}: Props) => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
-
     setLoading(true);
 
-    let platform = "";
-    let tags = "";
-    let sort = "";
-    let url = "/games";
-
-    console.log(selectedPlatform);
-
-    if (selectedPlatform) {
-      platform = "?platform=" + selectedPlatform;
-    }
+    const params: Record<string, any> = {};
+    if (selectedPlatforms.length > 0) params.platform = selectedPlatforms;
+    if (selectedGenres.length > 0) params.genre = selectedGenres;
+    if (searchText) params.search = searchText;
+    params.page = String(page);
 
     apiClient
-      .get<Game[]>(url + tags + platform + sort, { signal: controller.signal })
+      .get("/games", {
+        params,
+        signal: controller.signal,
+        paramsSerializer: {
+          indexes: null, // ลบ [] ออก
+        },
+      })
       .then((res) => {
-        setGames(res.data);
+        setGames(res.data.results || res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -49,7 +56,12 @@ const useGames = ({ selectedPlatform }: Props) => {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [
+    searchText,
+    page,
+    JSON.stringify(selectedPlatforms),
+    JSON.stringify(selectedGenres),
+  ]);
 
   return { games, error, isLoading };
 };

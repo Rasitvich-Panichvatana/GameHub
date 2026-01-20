@@ -17,12 +17,70 @@ const pool = new Pool({
 });
 
 // Get data from Database (PostgreSQL)
-app.get("/api/games", async (_req, res) => {
+app.get("/api/games", async (req, res) => {
   try {
-    const { rows } = await pool.query(
-      "SELECT * FROM games ORDER BY title DESC"
+    const { genre, platform, search, page } = req.query;
+
+    const PAGE_SIZE = 30;
+    const currentPage = parseInt(page as string) || 1;
+    const offset = (currentPage - 1) * PAGE_SIZE;
+
+    let query = "SELECT * FROM games";
+    const params: any[] = [];
+    const conditions: string[] = [];
+
+    // Build filter conditions
+    if (genre) {
+      params.push(genre);
+      conditions.push(`genre = $${params.length}`);
+    }
+
+    if (platform) {
+      const platforms = Array.isArray(platform) ? platform : [platform];
+
+      const likeClauses = platforms.map((p) => {
+        params.push(`%${p}%`);
+        return `platform ILIKE $${params.length}`;
+      });
+
+      conditions.push(`(${likeClauses.join(" OR ")})`);
+    }
+
+    if (search) {
+      params.push(`%${search}%`);
+      conditions.push(`title ILIKE $${params.length}`);
+    }
+
+    // Apply WHERE if filters exist
+    if (conditions.length > 0) {
+      query += " WHERE " + conditions.join(" AND ");
+    }
+
+    // Add ordering, pagination
+    query += " ORDER BY title ASC";
+    params.push(PAGE_SIZE, offset);
+    query += ` LIMIT $${params.length - 1} OFFSET $${params.length}`;
+
+    const { rows } = await pool.query(query, params);
+
+    // Count total results for frontend pagination UI
+    let totalQuery = "SELECT COUNT(*) FROM games";
+    if (conditions.length > 0) {
+      totalQuery += " WHERE " + conditions.join(" AND ");
+    }
+    const { rows: countRows } = await pool.query(
+      totalQuery,
+      params.slice(0, -2)
     );
-    return res.json(rows);
+    const total = parseInt(countRows[0].count, 10);
+
+    return res.json({
+      page: currentPage,
+      pageSize: PAGE_SIZE,
+      total,
+      totalPages: Math.ceil(total / PAGE_SIZE),
+      results: rows,
+    });
   } catch (err) {
     console.error("Database read failed:", err);
     return res.status(500).json({ error: "Database error" });

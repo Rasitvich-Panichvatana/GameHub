@@ -1,56 +1,30 @@
 import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 
 interface Props {
-  selectedPlatform: string | null;
-  onSelectPlatform: (platform: string | null) => void;
+  selectedPlatforms: string[];
+  onSelectPlatforms: (platforms: string[]) => void;
 }
 
-const PlatformList = ({ selectedPlatform, onSelectPlatform }: Props) => {
-  // Display name (Orginal Data from API) → API value mapping
-  const platformMap: { [key: string]: string } = {
-    "PC (Windows)": "pc",
-    "Web Browser": "browser",
-  };
-
-  const platformList = Object.keys(platformMap);
+const PlatformList = ({ selectedPlatforms, onSelectPlatforms }: Props) => {
+  const platformList = ["PC (Windows)", "Web Browser"];
 
   const handleChange = (values: string[]) => {
-    if (values.length === 0) {
-      onSelectPlatform(null); // no filter
-    } else if (values.length === platformList.length) {
-      onSelectPlatform("all"); // both selected
-    } else {
-      onSelectPlatform(platformMap[values[0]]); // convert display name to api value
-    }
+    onSelectPlatforms(values); // pass all selected values
   };
 
-  console.log("PlatformList rendered");
-
   return (
-    <>
-      <CheckboxGroup
-        value={
-          selectedPlatform === "all"
-            ? platformList
-            : selectedPlatform
-            ? [
-                Object.keys(platformMap).find(
-                  (label) => platformMap[label] === selectedPlatform
-                )!,
-              ]
-            : []
-        }
-        onChange={(values) => handleChange(values as string[])}
-      >
-        <Stack>
-          {platformList.map((platform) => (
-            <Checkbox key={platform} value={platform}>
-              {platform}
-            </Checkbox>
-          ))}
-        </Stack>
-      </CheckboxGroup>
-    </>
+    <CheckboxGroup
+      value={selectedPlatforms}
+      onChange={(values) => handleChange(values as string[])}
+    >
+      <Stack>
+        {platformList.map((platform) => (
+          <Checkbox key={platform} value={platform}>
+            {platform}
+          </Checkbox>
+        ))}
+      </Stack>
+    </CheckboxGroup>
   );
 };
 

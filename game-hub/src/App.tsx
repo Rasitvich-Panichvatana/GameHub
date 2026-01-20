@@ -9,13 +9,13 @@ import PlatformList from "./components/AsideComponents/PlatformList";
 import GenreList from "./components/AsideComponents/GenreList";
 
 function App() {
-  const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null);
+  const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
 
-  const onSelectPlatform = useCallback((platform: string | null) => {
-    setSelectedPlatform(platform);
+  const onSelectPlatforms = useCallback((platforms: string[]) => {
+    setSelectedPlatforms(platforms);
   }, []);
 
-  console.log("App rendered", selectedPlatform);
+  console.log("App rendered", selectedPlatforms);
 
   return (
     <Grid
@@ -40,8 +40,8 @@ function App() {
             title="Platform"
             checkbox={
               <PlatformList
-                onSelectPlatform={onSelectPlatform}
-                selectedPlatform={selectedPlatform}
+                onSelectPlatforms={onSelectPlatforms}
+                selectedPlatforms={selectedPlatforms}
               />
             }
           />
@@ -51,7 +51,7 @@ function App() {
 
       {/* Main - Game cards  */}
       <GridItem area="main" bgImage={mainBG}>
-        <GameGrid selectedPlatform={selectedPlatform} />
+        <GameGrid selectedPlatforms={selectedPlatforms} />
       </GridItem>
     </Grid>
   );

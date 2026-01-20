@@ -5,11 +5,11 @@ import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 
 interface Props {
-  selectedPlatform: string | null;
+  selectedPlatforms: string[];
 }
 
-const GameGrid = (selectedPlatform: Props) => {
-  const { games, error, isLoading } = useGames(selectedPlatform);
+const GameGrid = ({ selectedPlatforms }: Props) => {
+  const { games, error, isLoading } = useGames({ selectedPlatforms });
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   return (
