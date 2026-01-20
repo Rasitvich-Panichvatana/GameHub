@@ -10,12 +10,18 @@ import GenreList from "./components/AsideComponents/GenreList";
 
 function App() {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
 
   const onSelectPlatforms = useCallback((platforms: string[]) => {
     setSelectedPlatforms(platforms);
   }, []);
 
-  console.log("App rendered", selectedPlatforms);
+  const onSelectGenres = useCallback((genres: string[]) => {
+    setSelectedGenres(genres);
+  }, []);
+
+  // !!Debug don't forget to remove!!
+  console.log("App rendered", selectedPlatforms, selectedGenres);
 
   return (
     <Grid
@@ -45,13 +51,24 @@ function App() {
               />
             }
           />
-          <Accordions title="Tags" checkbox={<GenreList />} />
+          <Accordions
+            title="Genre"
+            checkbox={
+              <GenreList
+                onSelectGenres={onSelectGenres}
+                selectedGenres={selectedGenres}
+              />
+            }
+          />
         </GridItem>
       </Show>
 
       {/* Main - Game cards  */}
       <GridItem area="main" bgImage={mainBG}>
-        <GameGrid selectedPlatforms={selectedPlatforms} />
+        <GameGrid
+          selectedPlatforms={selectedPlatforms}
+          selectedGenres={selectedGenres}
+        />
       </GridItem>
     </Grid>
   );

@@ -68,6 +68,10 @@ const useGames = ({
     JSON.stringify(selectedGenres),
   ]);
 
+  // !!Debug remove later na!!
+  console.log(selectedGenres);
+  console.log(selectedPlatforms);
+
   return { games, error, isLoading };
 };
 

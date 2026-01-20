@@ -1,6 +1,11 @@
 import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 
-const GenreList = () => {
+interface Props {
+  selectedGenres: string[];
+  onSelectGenres: (platforms: string[]) => void;
+}
+
+const GenreList = ({ selectedGenres, onSelectGenres }: Props) => {
   const genresList = [
     "mmorpg",
     "shooter",
@@ -49,9 +54,16 @@ const GenreList = () => {
     "mmorts ",
   ];
 
+  const handleChange = (values: string[]) => {
+    onSelectGenres(values); // pass all selected values
+  };
+
   return (
     <>
-      <CheckboxGroup>
+      <CheckboxGroup
+        value={selectedGenres}
+        onChange={(values) => handleChange(values as string[])}
+      >
         <Stack>
           {genresList.map((genre) => (
             <Checkbox key={genre} value={genre}>

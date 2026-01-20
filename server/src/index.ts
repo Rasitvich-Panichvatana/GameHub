@@ -31,8 +31,14 @@ app.get("/api/games", async (req, res) => {
 
     // Build filter conditions
     if (genre) {
-      params.push(genre);
-      conditions.push(`genre = $${params.length}`);
+      const genres = Array.isArray(genre) ? genre : [genre];
+
+      const likeClauses = genres.map((p) => {
+        params.push(`%${p}%`);
+        return `genre ILIKE $${params.length}`;
+      });
+
+      conditions.push(`(${likeClauses.join(" OR ")})`);
     }
 
     // ILIKE = not case sensitive matching eg. PC = pc = Pc
