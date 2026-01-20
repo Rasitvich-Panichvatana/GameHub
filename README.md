@@ -1,11 +1,12 @@
 # About Project
 
-This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani with self-implemented backend and Github
+This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani with self-implemented backend, Database and Github
 
 - React Frontend from Course
   - React + Vite (TypeScript)
 - Backend to Secure API
   - Node.js + Express + TypeScript
+- DataBase: PostgreSQL
 - GitHub Documentation
 
 ## Version
@@ -21,6 +22,7 @@ This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani
 1. Create .env file in server folder (use .env.example as reference)
    - Recomended PORT=3000
    - API_URL=https://www.freetogame.com/api/games
+   - DATABASE_URL = Your PostgreSQL ( Can be Self-Hosted )
    - For more API information https://www.freetogame.com/api-doc
 2. Run Backend (Port 3000)
    - cd server
@@ -31,7 +33,8 @@ This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani
    - npm install (only for first time to install vite locally)
    - npm run dev
    - link: http://localhost:5173/
+4. Update Database through Backend api/update-games (button update will come soon)
 
 ## Note for Developer
 
-- Accordions are not smooth because App re-render everything check-box change
+- Fixed
