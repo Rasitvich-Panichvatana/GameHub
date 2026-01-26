@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import pkg from "pg";
 
+// Load data from .env
 dotenv.config();
 
 const { Pool } = pkg;
@@ -55,9 +56,11 @@ app.get("/api/games", async (req, res) => {
       conditions.push(`(${likeClauses.join(" AND ")})`);
     }
 
-    if (search) {
-      params.push(`%${search}%`);
-      conditions.push(`title ILIKE $${params.length}`);
+    if (typeof search === "string" && search.trim() !== "") {
+      params.push(`%${search.trim()}%`);
+      conditions.push(
+        `(title ILIKE $${params.length} OR genre ILIKE $${params.length})`
+      );
     }
 
     // Apply WHERE if filters exist

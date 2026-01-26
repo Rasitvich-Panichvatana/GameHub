@@ -32,6 +32,9 @@ const useGames = ({
     const controller = new AbortController();
     setLoading(true);
 
+    // Fix flashy when change page
+    setGames([]);
+
     // Keys must be string and Value can be any (in this case we have string[])
     // Can use type/interface object instead but i want to learn about Record
     // if use type/interface object instead we can manual eg. platform? = string[]; ...
