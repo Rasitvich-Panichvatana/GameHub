@@ -9,12 +9,14 @@ import GenreList from "./components/AsideComponents/GenreList";
 import PageSelector from "./components/MainComponents/PageSelector";
 
 import mainBG from "./assets/mainBG.jpg";
+import SearchBar from "./components/MainComponents/SearchBar";
 
 function App() {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedPage, setSelectedPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [searchText, setSearchText] = useState<string>("");
 
   const onSelectPlatforms = useCallback((platforms: string[]) => {
     setSelectedPlatforms(platforms);
@@ -30,7 +32,8 @@ function App() {
     selectedPlatforms,
     selectedGenres,
     selectedPage,
-    totalPages
+    totalPages,
+    searchText
   );
 
   return (
@@ -75,6 +78,7 @@ function App() {
 
       {/* Main - Game cards  */}
       <GridItem area="main" bgImage={mainBG}>
+        <SearchBar searchText={searchText} onSearch={setSearchText} />
         <GameGrid
           selectedPlatforms={selectedPlatforms}
           selectedGenres={selectedGenres}
