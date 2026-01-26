@@ -1,9 +1,10 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import useGames from "../../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 import { useEffect } from "react";
+import { vh } from "framer-motion";
 
 interface Props {
   selectedPlatforms: string[];
@@ -32,24 +33,26 @@ const GameGrid = ({
 
   return (
     <>
-      {error && <Text>{error}</Text>}
-      <SimpleGrid
-        columns={{ sm: 1, md: 3, lg: 3, xl: 5 }}
-        padding="2vw"
-        spacing={5}
-      >
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
-              <GameCardSkeleton />
+      <Box minH="100vh">
+        {error && <Text>{error}</Text>}
+        <SimpleGrid
+          columns={{ sm: 1, md: 3, lg: 3, xl: 5 }}
+          padding="2vw"
+          spacing={5}
+        >
+          {isLoading &&
+            skeletons.map((skeleton) => (
+              <GameCardContainer key={skeleton}>
+                <GameCardSkeleton />
+              </GameCardContainer>
+            ))}
+          {games.map((game) => (
+            <GameCardContainer key={game.id}>
+              <GameCard game={game} />
             </GameCardContainer>
           ))}
-        {games.map((game) => (
-          <GameCardContainer key={game.id}>
-            <GameCard game={game} />
-          </GameCardContainer>
-        ))}
-      </SimpleGrid>
+        </SimpleGrid>
+      </Box>
     </>
   );
 };
