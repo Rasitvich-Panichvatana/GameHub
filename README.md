@@ -1,13 +1,19 @@
 # About Project
 
-This Repository is for learning 'React 18 for Beginners' course by Mosh Hamedani with self-implemented backend, Database and Github
+Game Discovery Website
 
-- React Frontend from Course
+- Discover list of free games, over 422 games
+- User can Filter, sort, search games through the website
+- Responsive and Modern UI
+
+## Tools
+
+- Frontend
   - React + Vite (TypeScript)
-- Backend to Secure API
+- Backend
   - Node.js + Express + TypeScript
-- DataBase: PostgreSQL
-- GitHub Documentation
+- DataBase
+  - PostgreSQL
 
 ## Version
 
