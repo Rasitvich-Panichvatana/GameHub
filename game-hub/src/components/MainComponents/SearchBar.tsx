@@ -4,6 +4,7 @@ import {
   InputLeftElement,
   InputRightElement,
   IconButton,
+  Box,
 } from "@chakra-ui/react";
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
 
@@ -15,29 +16,31 @@ interface Props {
 const SearchBar = ({ searchText, onSearch }: Props) => {
   return (
     <>
-      <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <SearchIcon />
-        </InputLeftElement>
+      <Box marginX="20px" marginTop="20px">
+        <InputGroup>
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon />
+          </InputLeftElement>
 
-        <Input
-          placeholder="Search games..."
-          value={searchText}
-          onChange={(e) => onSearch(e.target.value)}
-        />
+          <Input
+            placeholder="Search games..."
+            value={searchText}
+            onChange={(e) => onSearch(e.target.value)}
+          />
 
-        {searchText && (
-          <InputRightElement>
-            <IconButton
-              aria-label="Clear search"
-              icon={<CloseIcon boxSize={3} />}
-              size="sm"
-              variant="ghost"
-              onClick={() => onSearch("")}
-            />
-          </InputRightElement>
-        )}
-      </InputGroup>
+          {searchText && (
+            <InputRightElement>
+              <IconButton
+                aria-label="Clear search"
+                icon={<CloseIcon boxSize={3} />}
+                size="sm"
+                variant="ghost"
+                onClick={() => onSearch("")}
+              />
+            </InputRightElement>
+          )}
+        </InputGroup>
+      </Box>
     </>
   );
 };

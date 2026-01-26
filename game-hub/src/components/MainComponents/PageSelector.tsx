@@ -10,9 +10,9 @@ interface Props {
 const PageSelector = ({ selectedPage, totalPages, onPageChange }: Props) => {
   return (
     <HStack
-      paddingY="2vh"
-      paddingX="1.2vw"
-      marginBottom="2vh"
+      paddingY="16px"
+      paddingX="16px"
+      marginBottom="10px"
       mx="auto"
       w="fit-content"
       justify="center"
