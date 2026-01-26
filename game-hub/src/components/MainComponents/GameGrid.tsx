@@ -3,17 +3,31 @@ import useGames from "../../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
+import { useEffect } from "react";
 
 interface Props {
   selectedPlatforms: string[];
   selectedGenres: string[];
+  page: number;
+  onTotalPages: (pages: number) => void;
 }
 
-const GameGrid = ({ selectedPlatforms, selectedGenres }: Props) => {
-  const { games, error, isLoading } = useGames({
+const GameGrid = ({
+  selectedPlatforms,
+  selectedGenres,
+  page,
+  onTotalPages,
+}: Props) => {
+  const { games, error, isLoading, totalPages } = useGames({
     selectedPlatforms,
     selectedGenres,
+    page,
   });
+
+  useEffect(() => {
+    onTotalPages(totalPages);
+  }, [totalPages]);
+
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   return (

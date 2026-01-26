@@ -2,7 +2,7 @@ import { Checkbox, CheckboxGroup, Stack } from "@chakra-ui/react";
 
 interface Props {
   selectedGenres: string[];
-  onSelectGenres: (platforms: string[]) => void;
+  onSelectGenres: (genres: string[]) => void;
 }
 
 const GenreList = ({ selectedGenres, onSelectGenres }: Props) => {

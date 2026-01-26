@@ -14,7 +14,7 @@ interface Props {
 
 const Accordions = ({ title, checkbox }: Props) => {
   return (
-    <Accordion allowMultiple>
+    <Accordion allowMultiple defaultIndex={0}>
       <AccordionItem>
         <AccordionButton>
           <Box as="span" flex="1" textAlign="left" fontSize="lg">

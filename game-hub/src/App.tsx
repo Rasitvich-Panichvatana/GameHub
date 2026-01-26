@@ -2,15 +2,19 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavComponents/NavBar";
 import GameGrid from "./components/MainComponents/GameGrid";
 
-import mainBG from "./assets/mainBG.jpg";
 import Accordions from "./components/AsideComponents/Accordions";
 import { useCallback, useState } from "react";
 import PlatformList from "./components/AsideComponents/PlatformList";
 import GenreList from "./components/AsideComponents/GenreList";
+import PageSelector from "./components/MainComponents/PageSelector";
+
+import mainBG from "./assets/mainBG.jpg";
 
 function App() {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [selectedPage, setSelectedPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
   const onSelectPlatforms = useCallback((platforms: string[]) => {
     setSelectedPlatforms(platforms);
@@ -21,7 +25,13 @@ function App() {
   }, []);
 
   // !!Debug don't forget to remove!!
-  console.log("App rendered", selectedPlatforms, selectedGenres);
+  console.log(
+    "App rendered",
+    selectedPlatforms,
+    selectedGenres,
+    selectedPage,
+    totalPages
+  );
 
   return (
     <Grid
@@ -68,6 +78,13 @@ function App() {
         <GameGrid
           selectedPlatforms={selectedPlatforms}
           selectedGenres={selectedGenres}
+          page={selectedPage}
+          onTotalPages={setTotalPages}
+        />
+        <PageSelector
+          selectedPage={selectedPage}
+          totalPages={totalPages}
+          onPageChange={setSelectedPage}
         />
       </GridItem>
     </Grid>
