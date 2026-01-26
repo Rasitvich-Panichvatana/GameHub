@@ -11,8 +11,9 @@ const PageSelector = ({ selectedPage, totalPages, onPageChange }: Props) => {
     <HStack
       paddingY="2vh"
       paddingX="1.2vw"
-      marginX="30vw"
       marginBottom="2vh"
+      mx="auto"
+      w="fit-content"
       justify="center"
       borderRadius="16px"
       bgColor="gray.900"

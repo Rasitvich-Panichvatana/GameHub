@@ -41,12 +41,13 @@ const GameGrid = ({
 
   return (
     <>
-      <Box minH="97vh">
+      <Box minH="95vh">
         {error && <Text>{error}</Text>}
         <SimpleGrid
           columns={{ sm: 1, md: 3, lg: 3, xl: 5 }}
           paddingX="2vw"
-          paddingTop="2vw"
+          paddingTop="30px"
+          paddingBottom="24px"
           spacing={5}
         >
           {isLoading &&

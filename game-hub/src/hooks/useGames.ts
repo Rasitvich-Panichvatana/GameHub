@@ -21,7 +21,6 @@ const useGames = ({
   selectedPlatforms = [],
   selectedGenres = [],
   searchText,
-  // will do page feature later
   page = 1,
 }: Props) => {
   const [games, setGames] = useState<Game[]>([]);
