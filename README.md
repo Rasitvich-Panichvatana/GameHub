@@ -6,7 +6,7 @@ Game Discovery Website
 
 ![Pagination Image](README-assets/Page.jpeg)
 
-- Discover list of free games, over 422 games
+- Discover list of 422 free games
 - User can Filter, sort, search games through the website
 - Responsive and Smooth UI
 
