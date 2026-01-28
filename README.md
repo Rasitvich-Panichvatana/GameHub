@@ -50,7 +50,7 @@ Game Discovery Website
    - npm install (only for first time to install vite locally)
    - npm run dev
    - link: http://localhost:5173/
-4. Update Database through Backend api/update-games (button update will come soon)
+4. Update Database through Backend api/update-games
 
 ## Note for Developer
 
